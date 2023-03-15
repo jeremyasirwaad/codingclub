@@ -11,8 +11,10 @@ class CusDrawer extends StatelessWidget {
         padding: EdgeInsets.all(16),
         child: ListView(
           children: [
+            Image.asset("assets/images/logo.jpeg", height: 100, width: 100,),
             Row(
               children: [
+                
                 Container(
                   margin: EdgeInsets.only(top: 40),
                   child: Text(
@@ -35,26 +37,64 @@ class CusDrawer extends StatelessWidget {
                 )
               ],
             ),
+            SizedBox(
+              height: 45,
+            ),
             Row(
               children: [
                 IconButton(
-                    onPressed: () {}, icon: FaIcon(FontAwesomeIcons.adversal)),
-                Text("Club Events"),
+                    onPressed: () {}, icon: FaIcon(FontAwesomeIcons.code)),
+                Text(
+                  "Club Events",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                ),
               ],
+            ),
+            SizedBox(
+              height: 15,
             ),
             Row(
               children: [
-                Text("GCT News"),
+                IconButton(
+                    onPressed: () {}, icon: FaIcon(FontAwesomeIcons.newspaper)),
+                Text(
+                  "GCT News",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                ),
               ],
+            ),
+            SizedBox(
+              height: 15,
             ),
             Row(
               children: [
-                Text("GCT Schedule"),
+                IconButton(
+                    onPressed: () {},
+                    icon: FaIcon(FontAwesomeIcons.calendarCheck)),
+                Text(
+                  "GCT Schedule",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                ),
               ],
             ),
+            SizedBox(
+              height: 15,
+            ),
             Row(
-              children: [Text("Register for Coding Club")],
-            )
+              children: [
+                IconButton(
+                    onPressed: () {},
+                    icon: FaIcon(FontAwesomeIcons.registered)),
+                Text(
+                  "Join Coding Club",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Divider()
           ],
         ),
       ),
