@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './Pages/HomePage.dart';
 import './Pages/SplashScreen.dart';
+import './Pages/EventsDetails.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +15,6 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(title: "Coding Club", home: SplashScreen());
+    return MaterialApp(title: "Coding Club", home: EventsDetails());
   }
 }
