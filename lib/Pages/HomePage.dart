@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'package:codingclub/model/EventsModel.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Components/ClubEvents.dart';
 import '../Components/Drawer.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -11,6 +15,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<EventData> _Events = [];
+  bool isloading = true;
+
+  Future<dynamic> fetchAlbum() async {
+    final response = await http.get(
+      Uri.parse('http://10.0.2.2:1337/api/events'),
+    );
+
+    if (response.statusCode == 200) {
+      var datadart = jsonDecode(response.body);
+      _Events = EventsModel.fromJson(datadart).data!;
+      print(_Events[0].attributes!.appPoster);
+      setState(() {
+        isloading = false;
+      });
+      // print(_schedules!.length);
+    } else {
+      print("Null detectded");
+
+      throw Exception('Failed to load album');
+    }
+  }
+
+  @override
+  void initState() {
+    fetchAlbum();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,35 +64,33 @@ class _HomePageState extends State<HomePage> {
         color: Colors.white,
         height: double.infinity,
         width: double.infinity,
-        child: ListView(
-            padding: EdgeInsets.only(
-                // left: 16,
-                // right: 16,
-                // top: 22,
+        child: !isloading
+            ? ListView(
+                padding: EdgeInsets.only(
+                    // left: 16,
+                    // right: 16,
+                    // top: 22,
+                    ),
+                children: [
+                    ...List.generate(
+                        _Events.length,
+                        (index) => ClubeventCard(
+                            _Events[index].attributes!.appPoster as String,
+                            _Events[index].attributes!.appShortDescription
+                                as String,
+                            _Events[index].attributes!.appEventDate as String,
+                            _Events[index].attributes!.appTitle as String,
+                            _Events[index].attributes!.appEventData as String,
+                            _Events[index]
+                                .attributes!
+                                .appResgisterationGformLink as String))
+                  ])
+            : Center(
+                child: SpinKitCircle(
+                  color: Color.fromARGB(208, 0, 0, 0),
+                  size: 50.0,
                 ),
-            children: [
-              ClubeventCard(
-                  "https://pluralsight2.imgix.net/paths/images/javascript-542e10ea6e.png",
-                  "19 Aug 23",
-                  "This is a Coding Club Javascript contest, I would love you guys to participate in the same without fail ",
-                  "Javascript Contest"),
-              ClubeventCard(
-                  "https://gyanveda.in/wp-content/uploads/2021/05/C-Programming-1.png",
-                  "20 Sep 23",
-                  "C++ Advanced Programing Course will be handled on Friday of This month. I cordially invite you all to attend this event",
-                  "C++ Course"),
-              ClubeventCard(
-                  "https://w7.pngwing.com/pngs/18/497/png-transparent-black-and-blue-atom-icon-screenshot-react-javascript-responsive-web-design-github-angularjs-github-logo-electric-blue-signage.png",
-                  "20 Oct 23",
-                  "React Development Bootcamp",
-                  "React Dev"),
-              // ClubeventCard(""),
-              // ClubeventCard(""),
-              // ClubeventCard(""),
-              // ClubeventCard(""),
-              // ClubeventCard(""),
-              // ClubeventCard(""),
-            ]),
+              ),
       ),
     );
   }

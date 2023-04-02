@@ -37,6 +37,13 @@ dependencies:
   google_fonts: ^2.2.0
   page_transition: ^2.0.9
   font_awesome_flutter: ^10.3.0
+  syncfusion_flutter_calendar: ^21.1.35
+  http: ^0.13.3
+  url_launcher: ^6.1.10
+  flutter_spinkit: ^5.1.0
+  firebase_core: ^2.9.0
+  firebase_messaging: ^14.4.0
+  firebase_analytics: ^10.2.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +70,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/logo.jpeg
+    - assets/images/Joinusimg.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
