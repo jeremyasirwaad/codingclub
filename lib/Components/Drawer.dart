@@ -16,14 +16,14 @@ class CusDrawer extends StatelessWidget {
         child: ListView(
           children: [
             Image.asset(
-              "assets/images/logo.jpeg",
-              height: 100,
-              width: 100,
+              "assets/images/logo.png",
+              height: 170,
+              width: 170,
             ),
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 40),
+                  margin: EdgeInsets.only(top: 0),
                   child: Text(
                     "Coding Club",
                     style: GoogleFonts.notoSerif(
@@ -33,7 +33,7 @@ class CusDrawer extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 40),
+                  margin: EdgeInsets.only(top: 0),
                   child: Text(
                     " GCT",
                     style: GoogleFonts.notoSerif(
