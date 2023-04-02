@@ -7,6 +7,7 @@ import '../Pages/EventsDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import './Constants.dart' as Constants;
 
 class GctNews extends StatefulWidget {
   GctNews({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _GctNewsState extends State<GctNews> {
 
   Future<dynamic> fetchAlbum() async {
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:1337/api/gct-newss'),
+      Uri.parse('${Constants.DevelopmentLink}/api/gct-newss'),
     );
 
     if (response.statusCode == 200) {

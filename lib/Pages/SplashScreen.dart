@@ -12,6 +12,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
+import './Constants.dart' as Constants;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -63,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
     String version = packageInfo.version;
 
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:1337/api/app-update'),
+      Uri.parse('${Constants.DevelopmentLink}/api/app-update'),
     );
 
     if (response.statusCode == 200) {
@@ -77,6 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
         _navigateToHome();
       }
     } else {
+      print(response);  
       print("Null detectded");
       throw Exception('Failed to load album');
     }

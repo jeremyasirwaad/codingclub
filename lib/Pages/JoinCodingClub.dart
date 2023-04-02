@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:codingclub/Components/Drawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import './Constants.dart' as Constants;
 
 class JoinCodingClub extends StatefulWidget {
   JoinCodingClub({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
 
     final response = await http.post(
         Uri.parse(
-          'http://10.0.2.2:1337/api/club-enquires',
+          '${Constants.DevelopmentLink}/api/club-enquires',
         ),
         headers: headers,
         body: jsonEncode(body));

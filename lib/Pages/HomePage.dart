@@ -6,6 +6,7 @@ import '../Components/ClubEvents.dart';
 import '../Components/Drawer.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import './Constants.dart' as Constants;
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<dynamic> fetchAlbum() async {
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:1337/api/events'),
+      Uri.parse('${Constants.DevelopmentLink}/api/events'),
     );
 
     if (response.statusCode == 200) {
