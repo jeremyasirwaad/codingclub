@@ -50,6 +50,9 @@ dependencies:
   path_provider: ^2.0.14
   permission_handler: ^10.2.0
   flutter_launcher_icons: "^0.12.0"
+  flutter_file_downloader: ^1.1.0+1
+  app_installer: ^1.1.0
+  percent_indicator: ^4.0.1
 
 dev_dependencies:
   flutter_test:

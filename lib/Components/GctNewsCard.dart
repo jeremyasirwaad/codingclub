@@ -38,25 +38,27 @@ class _GctNewsCardState extends State<GctNewsCard> {
               borderRadius: BorderRadius.circular(50),
             ),
             child: Container(
-              height: 310,
+              // height: 260,
               width: double.infinity,
               child: Column(children: [
                 Container(
-                  height: 210,
-                  padding: EdgeInsets.all(8),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        topRight: Radius.circular(50),
-                        bottomLeft: Radius.circular(35),
-                        bottomRight: Radius.circular(35)),
-                    child: Image.network(widget.NewsFlyer),
+                  height: 170,
+                  width: double.infinity,
+                  padding:
+                      EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 10),
+                  child: FittedBox(
+                    child: ClipRRect(
+                      child: Image.network(widget.NewsFlyer),
+                      // borderRadius: BorderRadius.circular(100),
+                    ),
+                    fit: BoxFit.fill,
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 30),
+                  margin: EdgeInsets.only(bottom: 20),
                   width: double.infinity,
-                  height: 100,
+                  // height: 70,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -65,13 +67,13 @@ class _GctNewsCardState extends State<GctNewsCard> {
                           style: GoogleFonts.notoSerif(
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
-                              fontSize: 18),
+                              fontSize: 16),
                         ),
                         Text(
                           widget.NewsDesc + " - READ MORE",
                           style: GoogleFonts.notoSerif(
                               color: Color.fromARGB(255, 111, 111, 111),
-                              fontSize: 14),
+                              fontSize: 13),
                         )
                         // Positioned(
                         //     right: 25,

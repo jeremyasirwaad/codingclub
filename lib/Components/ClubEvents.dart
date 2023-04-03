@@ -53,26 +53,26 @@ class _ClubeventCardState extends State<ClubeventCard> {
                       style: GoogleFonts.notoSerif(
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
-                          fontSize: 19),
+                          fontSize: 16),
                     ),
                     Text(
                       widget.date,
                       style: GoogleFonts.notoSerif(
                           color: Color.fromARGB(255, 111, 111, 111),
-                          fontSize: 14),
+                          fontSize: 13),
                     ),
                     SizedBox(height: 10),
                     Text(
                       widget.discription,
                       style: GoogleFonts.notoSerif(
                           color: Color.fromARGB(255, 111, 111, 111),
-                          fontSize: 14),
+                          fontSize: 13),
                     ),
                     SizedBox(height: 5),
                     Text(
                       "Read More",
                       style: GoogleFonts.notoSerif(
-                          color: Color.fromARGB(255, 0, 0, 0), fontSize: 14),
+                          color: Color.fromARGB(255, 0, 0, 0), fontSize: 13),
                     ),
                     SizedBox(height: 10),
                   ]),

@@ -31,7 +31,7 @@ class _GctNewsInnerPageState extends State<GctNewsInnerPage> {
             style: GoogleFonts.notoSerif(
                 fontWeight: FontWeight.w600,
                 color: Color.fromARGB(255, 0, 0, 0),
-                fontSize: 26),
+                fontSize: 22),
           )),
       drawer: CusDrawer(),
       body: ListView(children: [
@@ -45,7 +45,7 @@ class _GctNewsInnerPageState extends State<GctNewsInnerPage> {
               style: GoogleFonts.notoSerif(
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
-                  fontSize: 24),
+                  fontSize: 22),
             ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 10),
@@ -59,7 +59,7 @@ class _GctNewsInnerPageState extends State<GctNewsInnerPage> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 widget.NewsData,
-                style: GoogleFonts.notoSerif(fontSize: 18),
+                style: GoogleFonts.notoSerif(fontSize: 16),
               ),
             ),
           ]),

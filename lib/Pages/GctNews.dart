@@ -22,7 +22,7 @@ class _GctNewsState extends State<GctNews> {
 
   Future<dynamic> fetchAlbum() async {
     final response = await http.get(
-      Uri.parse('${Constants.DevelopmentLink}/api/gct-newss'),
+      Uri.parse('${Constants.ProductionLink}/api/gct-newss'),
     );
 
     if (response.statusCode == 200) {
@@ -57,7 +57,7 @@ class _GctNewsState extends State<GctNews> {
             style: GoogleFonts.notoSerif(
                 fontWeight: FontWeight.w600,
                 color: Color.fromARGB(255, 0, 0, 0),
-                fontSize: 26),
+                fontSize: 22),
           )),
       drawer: CusDrawer(),
       body: !isloading

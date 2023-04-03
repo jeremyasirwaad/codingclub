@@ -64,7 +64,7 @@ class LoadDataFromGoogleSheetState extends State<GctCalender> {
                 style: GoogleFonts.notoSerif(
                     fontWeight: FontWeight.w600,
                     color: Color.fromARGB(255, 0, 0, 0),
-                    fontSize: 26),
+                    fontSize: 22),
               )),
           drawer: CusDrawer(),
           body: SafeArea(

@@ -29,7 +29,7 @@ class _EventsDetailsState extends State<EventsDetails> {
                 await launch(widget.appResgisterationGformLink);
           },
           child: Container(
-            height: 70,
+            height: 50,
             color: Color.fromARGB(255, 122, 34, 255),
             child: Center(
               child: Text(
@@ -53,7 +53,7 @@ class _EventsDetailsState extends State<EventsDetails> {
             style: GoogleFonts.notoSerif(
                 fontWeight: FontWeight.w600,
                 color: Color.fromARGB(255, 0, 0, 0),
-                fontSize: 26),
+                fontSize: 22),
           )),
       drawer: CusDrawer(),
       body: Container(

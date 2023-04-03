@@ -29,7 +29,7 @@ class CusDrawer extends StatelessWidget {
                     style: GoogleFonts.notoSerif(
                         fontWeight: FontWeight.w600,
                         color: Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 29),
+                        fontSize: 24),
                   ),
                 ),
                 Container(
@@ -39,13 +39,13 @@ class CusDrawer extends StatelessWidget {
                     style: GoogleFonts.notoSerif(
                         fontWeight: FontWeight.w600,
                         color: Color.fromRGBO(255, 208, 0, 1),
-                        fontSize: 29),
+                        fontSize: 24),
                   ),
                 )
               ],
             ),
             SizedBox(
-              height: 40,
+              height: 20,
             ),
             GestureDetector(
               onTap: () {

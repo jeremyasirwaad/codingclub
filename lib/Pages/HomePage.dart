@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<dynamic> fetchAlbum() async {
     final response = await http.get(
-      Uri.parse('${Constants.DevelopmentLink}/api/events'),
+      Uri.parse('${Constants.ProductionLink}/api/events'),
     );
 
     if (response.statusCode == 200) {
@@ -53,13 +53,11 @@ class _HomePageState extends State<HomePage> {
           iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
           elevation: 0,
-          title: Text(
-            "Club Events",
-            style: GoogleFonts.notoSerif(
-                fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
-                fontSize: 26),
-          )),
+          title: Text("Club Events",
+              style: GoogleFonts.notoSerif(
+                  fontWeight: FontWeight.w600,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontSize: 22))),
       drawer: CusDrawer(),
       body: Container(
         color: Colors.white,

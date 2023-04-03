@@ -39,7 +39,7 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
 
     final response = await http.post(
         Uri.parse(
-          '${Constants.DevelopmentLink}/api/club-enquires',
+          '${Constants.ProductionLink}/api/club-enquires',
         ),
         headers: headers,
         body: jsonEncode(body));
@@ -64,7 +64,7 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
             style: GoogleFonts.notoSerif(
                 fontWeight: FontWeight.w600,
                 color: Color.fromARGB(255, 0, 0, 0),
-                fontSize: 26),
+                fontSize: 22),
           )),
       drawer: CusDrawer(),
       body: Container(
@@ -83,12 +83,12 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
                 style: GoogleFonts.notoSerif(
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
-                    fontSize: 29),
+                    fontSize: 26),
               ),
               Text(
                 "Enter the details below to start your Journey",
                 style: GoogleFonts.notoSerif(
-                    color: Color.fromARGB(255, 111, 111, 111), fontSize: 14),
+                    color: Color.fromARGB(255, 111, 111, 111), fontSize: 13),
               ),
               Container(
                 margin: EdgeInsets.only(top: 20),
