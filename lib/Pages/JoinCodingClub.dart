@@ -1,9 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:codingclub/Components/Drawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import './Constants.dart' as Constants;
+
 
 class JoinCodingClub extends StatefulWidget {
   JoinCodingClub({Key? key}) : super(key: key);
@@ -45,6 +47,13 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
         body: jsonEncode(body));
 
     if (response.statusCode == 200) {
+      // await Analytics.analytics.logEvent(
+      //   name: "Joining request",
+      //   parameters: <String, dynamic>{
+      //     'name': _FullName.text,
+      //     'rollnumber': _RollNo.text,
+      //   },
+      // );
       showAlertDialog(context);
     } else {
       showAlertDialog2(context);

@@ -22,7 +22,7 @@ class _GctNewsCardState extends State<GctNewsCard> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
           Navigator.push(
             context,
             MaterialPageRoute(

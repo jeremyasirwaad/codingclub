@@ -6,7 +6,6 @@ import 'dart:ui';
 import 'package:codingclub/Pages/HomePage.dart';
 import 'package:codingclub/model/AppUpdate.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:http/http.dart' as http;
@@ -15,9 +14,8 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:app_installer/app_installer.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import './Constants.dart' as Constants;
+import '../firebase_analytics.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -33,68 +31,84 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _checkForUpadates();
+    _navigateToHome();
+    // _checkForUpadates();
   }
 
-  _checkForUpadates() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    String version = packageInfo.version;
+  // _checkForUpadates() async {
+  //   PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  //   String version = packageInfo.version;
 
-    final response = await http.get(
-      Uri.parse('${Constants.ProductionLink}/api/app-update'),
-    );
+  //   final response = await http.get(
+  //     Uri.parse('${Constants.ProductionLink}/api/app-update'),
+  //   );
 
-    if (response.statusCode == 200) {
-      var datadart = jsonDecode(response.body);
-      UpdateData updateinfo = appupdate.fromJson(datadart).data!;
-      if (version != updateinfo.attributes!.version) {
-        print("Different version");
-        showAlertDialogloading(
-            context,
-            updateinfo.attributes!.apklink as String,
-            updateinfo.attributes!.version as String);
-        // showAlertDialog(context, updateinfo.attributes!.version as String,
-        //     updateinfo.attributes!.apklink as String, download, _progress);
-      } else {
-        _navigateToHome();
-      }
-    } else {
-      print(response);
-      print("Null detectded");
-      throw Exception('Failed to load album');
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     var datadart = jsonDecode(response.body);
+  //     UpdateData updateinfo = appupdate.fromJson(datadart).data!;
+  //     if (version != updateinfo.attributes!.version) {
+  //       print("Different version");
+  //       showAlertDialogloading(
+  //           context,
+  //           updateinfo.attributes!.apklink as String,
+  //           updateinfo.attributes!.version as String);
+  //       // showAlertDialog(context, updateinfo.attributes!.version as String,
+  //       //     updateinfo.attributes!.apklink as String, download, _progress);
+  //     } else {
+  //       _navigateToHome();
+  //     }
+  //   } else {
+  //     print(response);
+  //     print("Null detectded");
+  //     throw Exception('Failed to load album');
+  //   }
+  // }
 
   _navigateToHome() async {
-    await Future.delayed(Duration(milliseconds: 3000), () {});
-    Navigator.pushReplacement(
-        context,
-        PageTransition(
-            type: PageTransitionType.rightToLeft, child: HomePage()));
-  }
-
-  Future download(String url) async {
-    PermissionStatus storageStatus = await Permission.storage.request();
-    if (storageStatus == PermissionStatus.granted) {
-      print("granted");
+    PermissionStatus Notificationstatus =
+        await Permission.notification.request();
+    if (Notificationstatus.isGranted) {
+      await Future.delayed(Duration(milliseconds: 3000), () {
+        Navigator.pushReplacement(
+            context,
+            PageTransition(
+                type: PageTransitionType.rightToLeft, child: HomePage()));
+      });
     }
-    if (storageStatus == PermissionStatus.denied) {
+
+    if (Notificationstatus.isDenied) {
       print("denied");
-    }
-    if (storageStatus == PermissionStatus.permanentlyDenied) {
-      openAppSettings();
+      showAlertDialog(context);
     }
 
-    FileDownloader.downloadFile(
-        url: url,
-        onProgress: (fileName, progress) => {
-              setState(() {
-                _progress = progress;
-              }),
-            },
-        onDownloadCompleted: (path) =>
-            {print("File Downloaded:" + path), OpenFile.open(path)});
+    if (Notificationstatus.isPermanentlyDenied) {
+      print(" permently denied");
+      showAlertDialog(context);
+    }
   }
+
+  // Future download(String url) async {
+  //   PermissionStatus storageStatus = await Permission.storage.request();
+  //   if (storageStatus == PermissionStatus.granted) {
+  //     print("granted");
+  //   }
+  //   if (storageStatus == PermissionStatus.denied) {
+  //     print("denied");
+  //   }
+  //   if (storageStatus == PermissionStatus.permanentlyDenied) {
+  //     openAppSettings();
+  //   }
+
+  //   FileDownloader.downloadFile(
+  //       url: url,
+  //       onProgress: (fileName, progress) => {
+  //             setState(() {
+  //               _progress = progress;
+  //             }),
+  //           },
+  //       onDownloadCompleted: (path) =>
+  //           {print("File Downloaded:" + path), OpenFile.open(path)});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -119,8 +133,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-showAlertDialog(BuildContext context, String version, String url,
-    Function download, double _progress) {
+showAlertDialog(BuildContext context) {
   // set up the button
   Widget okButton = TextButton(
     style: ElevatedButton.styleFrom(
@@ -128,27 +141,40 @@ showAlertDialog(BuildContext context, String version, String url,
         onPrimary: Colors.black,
         textStyle: TextStyle(color: Colors.black)),
     child: Text(
-      "Download",
+      "Okay",
       style: GoogleFonts.notoSerif(fontSize: 14),
     ),
     onPressed: () {
-      download(url);
+      Navigator.pushReplacement(
+          context,
+          PageTransition(
+              type: PageTransitionType.rightToLeft, child: HomePage()));
+    },
+  );
+
+  Widget okButton2 = TextButton(
+    style: ElevatedButton.styleFrom(
+        primary: Color.fromRGBO(255, 208, 0, 1),
+        onPrimary: Colors.black,
+        textStyle: TextStyle(color: Colors.black)),
+    child: Text(
+      "Enable",
+      style: GoogleFonts.notoSerif(fontSize: 14),
+    ),
+    onPressed: () {
+      openAppSettings();
     },
   );
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text(
-      "Update Available - " + version,
-      style: GoogleFonts.notoSerif(fontSize: 22, fontWeight: FontWeight.bold),
-    ),
-    content: Text(
-        "Update is Available, download and install to continue using the app.",
-        style: GoogleFonts.notoSerif(fontSize: 16)),
-    actions: [
-      okButton,
-    ],
-  );
+      title: Text(
+        "Notication Denied",
+        style: GoogleFonts.notoSerif(fontSize: 22, fontWeight: FontWeight.bold),
+      ),
+      content: Text("Enable Notication For Better Experience !",
+          style: GoogleFonts.notoSerif(fontSize: 16)),
+      actions: [okButton2, okButton]);
 
   // show the dialog
   showDialog(
@@ -159,111 +185,131 @@ showAlertDialog(BuildContext context, String version, String url,
   );
 }
 
-showAlertDialogloading(
-  BuildContext context,
-  String url,
-  String version,
-) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      String buttontext = "Download";
-      String maintext = "Update Available - ";
-      String subtext =
-          "Update is Available, download and install to continue using the app.";
-      double _progress = 0.0;
-      bool showprog = false;
-      bool downloaded = false;
-      String pathv = "";
-      bool btnstatus = true;
+// showAlertDialogloading(
+//   BuildContext context,
+//   String url,
+//   String version,
+// ) {
+//   showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       String buttontext = "Download";
+//       String maintext = "Update Available - ";
+//       String subtext =
+//           "Update is Available, download and install to continue using the app. \n Kindly allow storage permissions";
+//       double _progress = 0.0;
+//       bool showprog = false;
+//       bool downloaded = false;
+//       String pathv = "";
+//       bool btnstatus = true;
 
-      return StatefulBuilder(
-          builder: (context, setState) => AlertDialog(
-                title: Text(
-                  maintext + version,
-                  style: GoogleFonts.notoSerif(
-                      fontSize: 22, fontWeight: FontWeight.bold),
-                ),
-                content: Container(
-                    child: !showprog
-                        ? Text(subtext,
-                            style: GoogleFonts.notoSerif(fontSize: 16))
-                        : new CircularPercentIndicator(
-                            radius: 40.0,
-                            lineWidth: 5.0,
-                            percent: _progress / 100,
-                            center: new Text("${_progress.toString()}%"),
-                            progressColor: Color.fromRGBO(255, 208, 0, 1),
-                          )),
-                actions: [
-                  !downloaded
-                      ? btnstatus
-                          ? TextButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary: Color.fromRGBO(255, 208, 0, 1),
-                                  onPrimary: Colors.black,
-                                  textStyle: TextStyle(color: Colors.black)),
-                              child: Text(
-                                buttontext,
-                                style: GoogleFonts.notoSerif(fontSize: 16),
-                              ),
-                              onPressed: () async {
-                                setState(() {
-                                  buttontext = "Downloading";
-                                  btnstatus = false;
-                                });
-                                PermissionStatus storageStatus =
-                                    await Permission.storage.request();
-                                if (storageStatus == PermissionStatus.granted) {
-                                  print("granted");
-                                }
-                                if (storageStatus == PermissionStatus.denied) {
-                                  print("denied");
-                                }
-                                if (storageStatus ==
-                                    PermissionStatus.permanentlyDenied) {
-                                  openAppSettings();
-                                }
+//       return StatefulBuilder(
+//           builder: (context, setState) => AlertDialog(
+//                 title: Text(
+//                   maintext + version,
+//                   style: GoogleFonts.notoSerif(
+//                       fontSize: 22, fontWeight: FontWeight.bold),
+//                 ),
+//                 content: Container(
+//                     child: !showprog
+//                         ? Text(subtext,
+//                             style: GoogleFonts.notoSerif(fontSize: 16))
+//                         : new CircularPercentIndicator(
+//                             radius: 40.0,
+//                             lineWidth: 5.0,
+//                             percent: _progress / 100,
+//                             center: new Text("${_progress.toString()}%"),
+//                             progressColor: Color.fromRGBO(255, 208, 0, 1),
+//                           )),
+//                 actions: [
+//                   !downloaded
+//                       ? btnstatus
+//                           ? TextButton(
+//                               style: ElevatedButton.styleFrom(
+//                                   primary: Color.fromRGBO(255, 208, 0, 1),
+//                                   onPrimary: Colors.black,
+//                                   textStyle: TextStyle(color: Colors.black)),
+//                               child: Text(
+//                                 buttontext,
+//                                 style: GoogleFonts.notoSerif(fontSize: 16),
+//                               ),
+//                               onPressed: () async {
+//                                 PermissionStatus storageStatus =
+//                                     await Permission.storage.request();
 
-                                FileDownloader.downloadFile(
-                                    url: url,
-                                    onProgress: (fileName, progress) => {
-                                          setState(() {
-                                            maintext = "Downloading - ";
-                                            showprog = true;
-                                            _progress = progress;
-                                          }),
-                                        },
-                                    onDownloadCompleted: (path) => {
-                                          print("File Downloaded:" + path),
-                                          setState(() {
-                                            btnstatus = true;
-                                            subtext =
-                                                "Click Install Below to Update the app";
-                                            showprog = false;
-                                            pathv = path;
-                                            downloaded = true;
-                                            maintext = "Install Update - ";
-                                          })
-                                        });
-                              },
-                            )
-                          : Container()
-                      : TextButton(
-                          onPressed: () {
-                            AppInstaller.installApk(pathv);
-                          },
-                          style: ElevatedButton.styleFrom(
-                              primary: Color.fromRGBO(255, 208, 0, 1),
-                              onPrimary: Colors.black,
-                              textStyle: TextStyle(color: Colors.black)),
-                          child: Text(
-                            "Install",
-                            style: GoogleFonts.notoSerif(fontSize: 16),
-                          ),
-                        ),
-                ],
-              ));
-    },
-  );
-}
+//                                 PermissionStatus appinstallStatus =
+//                                     await Permission.requestInstallPackages
+//                                         .request();
+
+//                                 print(storageStatus);
+
+//                                 if (storageStatus == PermissionStatus.granted &&
+//                                     appinstallStatus ==
+//                                         PermissionStatus.granted) {
+//                                   print("granted");
+//                                 }
+//                                 if (storageStatus == PermissionStatus.denied &&
+//                                     appinstallStatus ==
+//                                         PermissionStatus.denied) {
+//                                   print("denied");
+//                                 }
+//                                 if (storageStatus ==
+//                                     PermissionStatus.permanentlyDenied) {
+//                                   openAppSettings();
+//                                 }
+
+//                                 if (appinstallStatus ==
+//                                     PermissionStatus.permanentlyDenied) {
+//                                   openAppSettings();
+//                                 }
+//                                 setState(() {
+//                                   buttontext = "Downloading";
+//                                   btnstatus = false;
+//                                 });
+//                                 if (storageStatus == PermissionStatus.granted) {
+//                                   FileDownloader.downloadFile(
+//                                       url: url,
+//                                       onProgress: (fileName, progress) => {
+//                                             setState(() {
+//                                               maintext = "Downloading - ";
+//                                               showprog = true;
+//                                               _progress = progress;
+//                                             }),
+//                                           },
+//                                       onDownloadCompleted: (path) async => {
+//                                             print("File Downloaded:" + path),
+//                                             setState(() {
+//                                               btnstatus = true;
+//                                               subtext =
+//                                                   "Click Install Below to Update the app";
+//                                               showprog = false;
+//                                               pathv = path;
+//                                               downloaded = true;
+//                                               maintext = "Install Update - ";
+//                                             }),
+//                                             await Analytics.analytics.logEvent(
+//                                                 name:
+//                                                     "Downloaded Update$version")
+//                                           });
+//                                 }
+//                               },
+//                             )
+//                           : Container()
+//                       : TextButton(
+//                           onPressed: () {
+//                             AppInstaller.installApk(pathv);
+//                           },
+//                           style: ElevatedButton.styleFrom(
+//                               primary: Color.fromRGBO(255, 208, 0, 1),
+//                               onPrimary: Colors.black,
+//                               textStyle: TextStyle(color: Colors.black)),
+//                           child: Text(
+//                             "Install",
+//                             style: GoogleFonts.notoSerif(fontSize: 16),
+//                           ),
+//                         ),
+//                 ],
+//               ));
+//     },
+//   );
+// }

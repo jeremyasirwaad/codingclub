@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class EventsModel {
   List<EventData>? data;
 
@@ -54,6 +56,7 @@ class Attributes {
   String? updatedAt;
   String? publishedAt;
   String? appPoster;
+  bool? isOpen;
 
   Attributes(
       {this.appTitle,
@@ -64,7 +67,8 @@ class Attributes {
       this.createdAt,
       this.updatedAt,
       this.publishedAt,
-      this.appPoster});
+      this.appPoster,
+      this.isOpen});
 
   Attributes.fromJson(Map<String, dynamic> json) {
     appTitle = json['AppTitle'];
@@ -76,6 +80,7 @@ class Attributes {
     updatedAt = json['updatedAt'];
     publishedAt = json['publishedAt'];
     appPoster = json['App_Poster'];
+    isOpen = json['isOpen'];
   }
 
   Map<String, dynamic> toJson() {
@@ -89,6 +94,7 @@ class Attributes {
     data['updatedAt'] = this.updatedAt;
     data['publishedAt'] = this.publishedAt;
     data['App_Poster'] = this.appPoster;
+    data['isOpen'] = this.isOpen;
     return data;
   }
 }

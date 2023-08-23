@@ -3,14 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ClubeventCard extends StatefulWidget {
-  ClubeventCard(this.imagesrc, this.date, this.discription, this.title,
-      this.app_event_data, this.appResgisterationGformLink);
+  ClubeventCard(
+      this.imagesrc,
+      this.date,
+      this.discription,
+      this.title,
+      this.app_event_data,
+      this.appResgisterationGformLink,
+      this.type,
+      this.isOpen);
   final String imagesrc;
   final String date;
   final String discription;
   final String title;
   final String app_event_data;
   final String appResgisterationGformLink;
+  final String type;
+  final bool isOpen;
 
   @override
   State<ClubeventCard> createState() => _ClubeventCardState();
@@ -24,8 +33,12 @@ class _ClubeventCardState extends State<ClubeventCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EventsDetails(widget.imagesrc,
-                widget.app_event_data, widget.appResgisterationGformLink),
+            builder: (context) => EventsDetails(
+                widget.imagesrc,
+                widget.app_event_data,
+                widget.appResgisterationGformLink,
+                widget.title,
+                widget.type, widget.isOpen),
           ),
         );
       },

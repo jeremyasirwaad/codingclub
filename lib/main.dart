@@ -7,6 +7,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import './Pages/EventsDetails.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import './firebase_analytics.dart';
+import 'package:upgrader/upgrader.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +36,15 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return const MaterialApp(title: "Coding Club", home: SplashScreen());
+    return MaterialApp(
+        title: "Coding Club",
+        navigatorObservers: [Analytics.observer],
+        home: UpgradeAlert(
+          child: const SplashScreen(),
+          upgrader: Upgrader(
+              shouldPopScope: () => true,
+              durationUntilAlertAgain: const Duration(days: 2),
+              canDismissDialog: true),
+        ));
   }
 }

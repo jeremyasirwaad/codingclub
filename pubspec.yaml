@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.0+9
 
 environment:
   sdk: ">=2.17.3 <3.0.0"
@@ -49,10 +49,10 @@ dependencies:
   flutter_downloader: ^1.10.2
   path_provider: ^2.0.14
   permission_handler: ^10.2.0
-  flutter_launcher_icons: "^0.12.0"
-  flutter_file_downloader: ^1.1.0+1
-  app_installer: ^1.1.0
-  percent_indicator: ^4.0.1
+  upgrader: ^4.8.1
+  floating_navbar: ^2.0.2
+  intl: ^0.18.1
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -64,15 +64,20 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.12.0"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon/ic_launcher.png"
+  adaptive_icon_background: "assets/images/icon/ic_launcher_adaptive_back.png"
+  adaptive_icon_foreground: "assets/images/icon/ic_launcher_adaptive_fore.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-flutter_icons:
-  android: true
-  ios: true
-  # adaptive_icon_background: "#ffffff"
-  # adaptive_icon_foreground: "assets/images/icon.png"
-  image_path: "assets/images/logowithborder.png"
+
 # The following section is specific to Flutter packages.
 flutter:
 

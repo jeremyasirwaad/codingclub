@@ -1,5 +1,6 @@
 import 'package:codingclub/Components/Drawer.dart';
 import 'package:codingclub/Components/GctNewsCard.dart';
+import '../firebase_analytics.dart';
 
 import '../Pages/EventsDetails.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,21 @@ class GctNewsInnerPage extends StatefulWidget {
 }
 
 class _GctNewsInnerPageState extends State<GctNewsInnerPage> {
+  @override
+  void initState() {
+    super.initState();
+    _logevent();
+  }
+
+  void _logevent() async {
+    await Analytics.analytics.logEvent(
+      name: "Viewed News",
+      parameters: <String, dynamic>{
+        'title': widget.NewsTitle,
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

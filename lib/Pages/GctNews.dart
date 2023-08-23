@@ -69,7 +69,7 @@ class _GctNewsState extends State<GctNews> {
                     _News[index].attributes!.appFlyer as String,
                     _News[index].attributes!.appDesc as String,
                     _News[index].attributes!.appData as String),
-              ),
+              ).reversed.toList(),
             ])
           : Center(
               child: SpinKitCircle(
