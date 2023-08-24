@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
+import 'package:codingclub/Pages/LeaderBoard.dart';
 import 'package:codingclub/model/EventsModel.dart';
 import 'package:codingclub/model/QuizModel.dart' as qm;
 import 'package:codingclub/model/Quizuser.dart' as qu;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/retry.dart';
+import 'package:page_transition/page_transition.dart';
 import '../Components/ClubEvents.dart';
 import '../Components/Drawer.dart';
 import 'package:http/http.dart' as http;
@@ -27,8 +29,7 @@ class _QuizState extends State<Quiz> {
   bool isloading = true;
   int? checkboxValue;
   TextEditingController _RollNo = TextEditingController();
-  bool _isButtonVisible = true;
-  DateTime? _nextShowTime;
+  bool _isButtonVisible = false;
 
   bool checktime() {
     DateTime now = DateTime.now();
@@ -69,7 +70,7 @@ class _QuizState extends State<Quiz> {
 
     final response = await http.get(
         Uri.parse(
-          "${Constants.ProductionLink}/api/quiz-answers?filters[rollno][\$eq]=${_RollNo.text}&populate=*",
+          "${Constants.ProductionLink}/api/quiz-answers?filters[rollno][\$eq]=${_RollNo.text.toUpperCase()}&populate=*",
         ),
         headers: headers);
 
@@ -78,20 +79,14 @@ class _QuizState extends State<Quiz> {
       var Quizuser = qu.QuizUser.fromJson(datadart);
       if (Quizuser.data!.isEmpty) {
         pushQuiz();
+        storeTomorrowDate();
       } else {
         appendQuiz(Quizuser.data![0].attributes!.answers as List<qu.Answers>,
             Quizuser.data![0].id as int);
+        storeTomorrowDate();
       }
 
-      // await Analytics.analytics.logEvent(
-      //   name: "Joining request",
-      //   parameters: <String, dynamic>{
-      //     'name': _FullName.text,
-      //     'rollnumber': _RollNo.text,
-      //   },
-      // );
       print(response.body);
-      // showAlertDialog(context);
     } else {
       // showAlertDialog2(context);
     }
@@ -100,7 +95,7 @@ class _QuizState extends State<Quiz> {
   Future<dynamic> pushQuiz() async {
     Map<String, dynamic> body = {
       'data': {
-        "rollno": _RollNo.text.toString(),
+        "rollno": _RollNo.text.toString().toUpperCase(),
         "answers": [
           {
             "quiz_id": _Quiz[_Quiz.length - 1].attributes!.quizId.toString(),
@@ -191,9 +186,61 @@ class _QuizState extends State<Quiz> {
     }
   }
 
+  Future<void> storeTomorrowDate() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final now = DateTime.now();
+    final tomorrow = DateTime(now.year, now.month, now.day + 1, 10, 0, 0);
+
+    await prefs.setString('nextShowTime', tomorrow.toIso8601String());
+    await prefs.setString('answer', checkboxValue.toString());
+
+    setState(() {
+      _isButtonVisible = false;
+    });
+  }
+
+  void isStoredDateGreaterThanNow() async {
+    final prefs = await SharedPreferences.getInstance();
+    final nextShowTimeStr = prefs.getString('nextShowTime');
+
+    if (nextShowTimeStr != null) {
+      final nextShowTime = DateTime.parse(nextShowTimeStr);
+      final now = DateTime.now();
+      print(nextShowTime);
+      if (now.isAfter(nextShowTime)) {
+        setState(() {
+          _isButtonVisible = true;
+        });
+      } else {
+        setState(() {
+          _isButtonVisible = false;
+        });
+      }
+    } else {
+      setState(() {
+        _isButtonVisible = true;
+      });
+    }
+
+    final storedans = prefs.getString('answer');
+
+    if (storedans != null) {
+      setState(() {
+        checkboxValue = int.parse(storedans);
+      });
+    }
+
+    // setState(() {
+    //   _isButtonVisible = true;
+    // });
+    // return false;
+  }
+
   @override
   void initState() {
     fetchAlbum();
+    isStoredDateGreaterThanNow();
     super.initState();
   }
 
@@ -222,14 +269,23 @@ class _QuizState extends State<Quiz> {
                       GoogleFonts.notoSerif(color: Colors.black, fontSize: 16)),
             )),
             Expanded(
-                child: Container(
-              height: double.infinity,
-              color: Colors.black,
-              child: Center(
-                child: Text("Leader Board",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.notoSerif(
-                        color: Colors.white, fontSize: 16)),
+                child: GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.rightToLeft,
+                        child: LeaderBoard()));
+              },
+              child: Container(
+                height: double.infinity,
+                color: Colors.black,
+                child: Center(
+                  child: Text("Leader Board",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.notoSerif(
+                          color: Colors.white, fontSize: 16)),
+                ),
               ),
             ))
           ],
@@ -399,7 +455,7 @@ class _QuizState extends State<Quiz> {
                     height: 40,
                   ),
                   !checktime()
-                      ? true
+                      ? _isButtonVisible
                           ? Column(
                               children: [
                                 Container(
@@ -422,6 +478,15 @@ class _QuizState extends State<Quiz> {
                                   height: 10,
                                 ),
                                 Container(
+                                  child: Text(
+                                    "* Roll No will be used for leaderboard",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
                                   // padding: EdgeInsets.all(8),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
@@ -430,14 +495,7 @@ class _QuizState extends State<Quiz> {
                                         textStyle:
                                             TextStyle(color: Colors.black)),
                                     onPressed: () {
-                                      // if (formGlobalKey.currentState!.validate()) {
                                       senddata();
-
-                                      //   ScaffoldMessenger.of(context).showSnackBar(
-                                      //     const SnackBar(
-                                      //         content: Text('Sending request')),
-                                      //   );
-                                      // }
                                     },
                                     child: Text(
                                       "Submit",
@@ -448,7 +506,19 @@ class _QuizState extends State<Quiz> {
                                 )
                               ],
                             )
-                          : Container()
+                          : Container(
+                              width: double.infinity,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Quiz Attended",
+                                        style: GoogleFonts.notoSerif(
+                                            color: Colors.black, fontSize: 15)),
+                                    Text("Answers Will be out by 6pm",
+                                        style: GoogleFonts.notoSerif(
+                                            color: Colors.black, fontSize: 15))
+                                  ]),
+                            )
                       : Container(),
                 ],
               ),
