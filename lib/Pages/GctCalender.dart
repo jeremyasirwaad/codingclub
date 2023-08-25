@@ -54,48 +54,47 @@ class LoadDataFromGoogleSheetState extends State<GctCalender> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          appBar: AppBar(
-              toolbarHeight: 70,
-              iconTheme: IconThemeData(color: Colors.black),
-              backgroundColor: Colors.white,
-              elevation: 0,
-              title: Text(
-                "GCT Calender",
-                style: GoogleFonts.notoSerif(
-                    fontWeight: FontWeight.w600,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                    fontSize: 22),
-              )),
-          drawer: CusDrawer(),
+          // appBar: AppBar(
+          //     toolbarHeight: 70,
+          //     iconTheme: IconThemeData(color: Colors.black),
+          //     backgroundColor: Colors.white,
+          //     elevation: 0,
+          //     title: Text(
+          //       "GCT Calender",
+          //       style: GoogleFonts.notoSerif(
+          //           fontWeight: FontWeight.w600,
+          //           color: Color.fromARGB(255, 0, 0, 0),
+          //           fontSize: 22),
+          //     )),
+          // drawer: CusDrawer(),
           body: SafeArea(
               child: Container(
-            child: FutureBuilder(
-              future: getDataFromGoogleSheet(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.data != null) {
-                  return SafeArea(
-                      child: Container(
-                    child: SfCalendar(
-                      view: CalendarView.schedule,
-                      monthViewSettings:
-                          const MonthViewSettings(showAgenda: true),
-                      dataSource: MeetingDataSource(snapshot.data),
-                      initialDisplayDate: snapshot.data[0].from,
-                    ),
-                  ));
-                } else {
-                  return Container(
-                    child: const Center(
-                      child: SpinKitCircle(
-                        color: Color.fromARGB(208, 0, 0, 0),
-                        size: 50.0,
-                      ),
-                    ),
-                  );
-                }
-              },
-            ),
-          ))),
+        child: FutureBuilder(
+          future: getDataFromGoogleSheet(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.data != null) {
+              return SafeArea(
+                  child: Container(
+                child: SfCalendar(
+                  view: CalendarView.schedule,
+                  monthViewSettings: const MonthViewSettings(showAgenda: true),
+                  dataSource: MeetingDataSource(snapshot.data),
+                  initialDisplayDate: snapshot.data[0].from,
+                ),
+              ));
+            } else {
+              return Container(
+                child: const Center(
+                  child: SpinKitCircle(
+                    color: Color.fromARGB(208, 0, 0, 0),
+                    size: 50.0,
+                  ),
+                ),
+              );
+            }
+          },
+        ),
+      ))),
     );
   }
 

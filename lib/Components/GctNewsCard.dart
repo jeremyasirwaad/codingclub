@@ -42,14 +42,14 @@ class _GctNewsCardState extends State<GctNewsCard> {
               width: double.infinity,
               child: Column(children: [
                 Container(
-                  height: 170,
+                  height: 210,
                   width: double.infinity,
                   padding:
                       EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 10),
                   child: FittedBox(
                     child: ClipRRect(
                       child: Image.network(widget.NewsFlyer),
-                      // borderRadius: BorderRadius.circular(100),
+                      borderRadius: BorderRadius.circular(100),
                     ),
                     fit: BoxFit.fill,
                   ),

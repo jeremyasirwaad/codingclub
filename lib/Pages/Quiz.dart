@@ -35,7 +35,7 @@ class _QuizState extends State<Quiz> {
     DateTime now = DateTime.now();
     int hour = now.hour;
 
-    if (hour < 10 && hour >= 18) {
+    if (hour < 10 || hour >= 18) {
       return true;
     } else {
       return false;
@@ -247,17 +247,17 @@ class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          toolbarHeight: 70,
-          iconTheme: IconThemeData(color: Colors.black),
-          backgroundColor: Colors.white,
-          elevation: 0,
-          title: Text("Daily Quiz",
-              style: GoogleFonts.notoSerif(
-                  fontWeight: FontWeight.w600,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  fontSize: 22))),
-      drawer: CusDrawer(),
+      // appBar: AppBar(
+      //     toolbarHeight: 70,
+      //     iconTheme: IconThemeData(color: Colors.black),
+      //     backgroundColor: Colors.white,
+      //     elevation: 0,
+      //     title: Text("Daily Quiz",
+      //         style: GoogleFonts.notoSerif(
+      //             fontWeight: FontWeight.w600,
+      //             color: Color.fromARGB(255, 0, 0, 0),
+      //             fontSize: 22))),
+      // drawer: CusDrawer(),
       bottomNavigationBar: Container(
         child: Row(
           children: [
@@ -271,7 +271,7 @@ class _QuizState extends State<Quiz> {
             Expanded(
                 child: GestureDetector(
               onTap: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                     context,
                     PageTransition(
                         type: PageTransitionType.rightToLeft,
@@ -511,12 +511,25 @@ class _QuizState extends State<Quiz> {
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Container(
+                                        height: 80,
+                                        width: 80,
+                                        child: Image.network(
+                                            "https://media.tenor.com/0AVbKGY_MxMAAAAM/check-mark-verified.gif"),
+                                      ),
+                                    ),
                                     Text("Quiz Attended",
                                         style: GoogleFonts.notoSerif(
-                                            color: Colors.black, fontSize: 15)),
+                                            color: Colors.green,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold)),
                                     Text("Answers Will be out by 6pm",
                                         style: GoogleFonts.notoSerif(
-                                            color: Colors.black, fontSize: 15))
+                                          color: Colors.black,
+                                          fontSize: 15,
+                                        ))
                                   ]),
                             )
                       : Container(),

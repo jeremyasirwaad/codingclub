@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:codingclub/Components/Drawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import './Constants.dart' as Constants;
-
 
 class JoinCodingClub extends StatefulWidget {
   JoinCodingClub({Key? key}) : super(key: key);
@@ -63,19 +61,19 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          toolbarHeight: 70,
-          iconTheme: IconThemeData(color: Colors.black),
-          backgroundColor: Colors.white,
-          elevation: 0,
-          title: Text(
-            "Join Coding Club",
-            style: GoogleFonts.notoSerif(
-                fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
-                fontSize: 22),
-          )),
-      drawer: CusDrawer(),
+      // appBar: AppBar(
+      //     toolbarHeight: 70,
+      //     iconTheme: IconThemeData(color: Colors.black),
+      //     backgroundColor: Colors.white,
+      //     elevation: 0,
+      //     title: Text(
+      //       "Join Coding Club",
+      //       style: GoogleFonts.notoSerif(
+      //           fontWeight: FontWeight.w600,
+      //           color: Color.fromARGB(255, 0, 0, 0),
+      //           fontSize: 22),
+      //     )),
+      // drawer: CusDrawer(),
       body: Container(
           padding: EdgeInsets.all(20),
           width: double.infinity,

@@ -274,10 +274,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_downloader
-      sha256: "6f2836668f33d0cd3ed275c3198d30967c42af53fa9b18c6b0edbf5fc12b599a"
+      sha256: "3d7313746c5f376b2209a59888a1c2766d94e09c26dc93fa23a725426e3f341c"
       url: "https://pub.dev"
     source: hosted
-    version: "1.10.2"
+    version: "1.10.5"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -320,6 +320,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "10.3.0"
+  get:
+    dependency: "direct main"
+    description:
+      name: get
+      sha256: "2ba20a47c8f1f233bed775ba2dd0d3ac97b4cf32fc17731b3dfc672b06b0e92a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.6.5"
   google_fonts:
     dependency: "direct main"
     description:
@@ -328,6 +336,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.3"
+  hidden_drawer_menu:
+    dependency: "direct main"
+    description:
+      name: hidden_drawer_menu
+      sha256: "74ca9c4ffc45c05dec3fd4e12cd6bd0851029d909ee5531bf31244b7160f96b9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   html:
     dependency: transitive
     description:
@@ -416,6 +432,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
+  no_context_navigation:
+    dependency: "direct main"
+    description:
+      name: no_context_navigation
+      sha256: "8bf0549c9c06cee77182a70e4a6a982fcb2d0d1dc06e712295f2c69a56fe3e19"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.2"
   open_file:
     dependency: "direct main"
     description:

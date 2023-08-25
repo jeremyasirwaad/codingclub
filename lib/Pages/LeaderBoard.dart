@@ -35,7 +35,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
 
     final response = await http.get(
         Uri.parse(
-          "${Constants.ProductionLink}/api/quiz-answers?populate=*",
+          "${Constants.ProductionLink}/api/quiz-answers?populate=*&sort=marks:desc",
         ),
         headers: headers);
 
@@ -73,34 +73,38 @@ class _LeaderBoardState extends State<LeaderBoard> {
                   fontWeight: FontWeight.w600,
                   color: Color.fromARGB(255, 0, 0, 0),
                   fontSize: 22))),
-      drawer: CusDrawer(),
+      // drawer: CusDrawer(),
       bottomNavigationBar: Container(
         child: Row(
           children: [
             Expanded(
                 child: GestureDetector(
               onTap: () {
-                Navigator.pushReplacement(
+                Navigator.pop(
                     context,
                     PageTransition(
                         type: PageTransitionType.rightToLeft, child: Quiz()));
               },
               child: Container(
-                child: Text("Quiz",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.notoSerif(
-                        color: Colors.black, fontSize: 16)),
+                height: double.infinity,
+                color: Colors.black,
+                child: Center(
+                  child: Text("Quiz",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.notoSerif(
+                          color: Colors.white, fontSize: 16)),
+                ),
               ),
             )),
             Expanded(
                 child: Container(
               height: double.infinity,
-              color: Colors.black,
+              color: Color.fromRGBO(255, 208, 0, 1),
               child: Center(
                 child: Text("Leader Board",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.notoSerif(
-                        color: Colors.white, fontSize: 16)),
+                        color: Colors.black, fontSize: 16)),
               ),
             ))
           ],

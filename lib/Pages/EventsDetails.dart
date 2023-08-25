@@ -67,12 +67,12 @@ class _EventsDetailsState extends State<EventsDetails> {
                 widget.isOpen == true
                     ? widget.type == "event"
                         ? "Register"
-                        : "Contact"
+                        : "Interested ?"
                     : "Registeration Closed",
                 style: GoogleFonts.notoSerif(
                     fontWeight: FontWeight.w600,
                     color: Color.fromARGB(255, 255, 255, 255),
-                    fontSize: 22),
+                    fontSize: 20),
               ),
             ),
           ),
@@ -90,7 +90,7 @@ class _EventsDetailsState extends State<EventsDetails> {
                 color: Color.fromARGB(255, 0, 0, 0),
                 fontSize: 22),
           )),
-      drawer: CusDrawer(),
+      // drawer: CusDrawer(),
       body: Container(
         color: Colors.white,
         height: double.infinity,

@@ -49,7 +49,7 @@ class _GctNewsInnerPageState extends State<GctNewsInnerPage> {
                 color: Color.fromARGB(255, 0, 0, 0),
                 fontSize: 22),
           )),
-      drawer: CusDrawer(),
+      // drawer: CusDrawer(),
       body: ListView(children: [
         Container(
           padding: EdgeInsets.all(12),

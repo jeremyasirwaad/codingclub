@@ -3,14 +3,13 @@ import 'dart:ffi';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:codingclub/Components/HiddenDrawer.dart';
 import 'package:codingclub/Pages/HomePage.dart';
 import 'package:codingclub/model/AppUpdate.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:http/http.dart' as http;
-import 'package:open_file/open_file.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
@@ -72,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
             context,
             PageTransition(
-                type: PageTransitionType.rightToLeft, child: HomePage()));
+                type: PageTransitionType.rightToLeft, child: HiddenDrawer()));
       });
     }
 
@@ -148,7 +147,7 @@ showAlertDialog(BuildContext context) {
       Navigator.pushReplacement(
           context,
           PageTransition(
-              type: PageTransitionType.rightToLeft, child: HomePage()));
+              type: PageTransitionType.rightToLeft, child: HiddenDrawer()));
     },
   );
 
