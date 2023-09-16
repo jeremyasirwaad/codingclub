@@ -9,10 +9,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Pages//JoinCodingClub.dart';
 
 class CusDrawer extends StatelessWidget {
+  const CusDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
         child: ListView(
@@ -25,33 +27,33 @@ class CusDrawer extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(children: [
                 Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 0),
+                      margin: const EdgeInsets.only(top: 0),
                       child: Text(
                         "Coding Club",
                         style: GoogleFonts.notoSerif(
                             fontWeight: FontWeight.w600,
-                            color: Color.fromARGB(255, 0, 0, 0),
+                            color: const Color.fromARGB(255, 0, 0, 0),
                             fontSize: 24),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 0),
+                      margin: const EdgeInsets.only(top: 0),
                       child: Text(
                         " GCT",
                         style: GoogleFonts.notoSerif(
                             fontWeight: FontWeight.w600,
-                            color: Color.fromRGBO(255, 208, 0, 1),
+                            color: const Color.fromRGBO(255, 208, 0, 1),
                             fontSize: 24),
                       ),
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 GestureDetector(
@@ -59,7 +61,7 @@ class CusDrawer extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomePage(),
+                        builder: (context) => const HomePage(),
                       ),
                     );
                   },
@@ -71,12 +73,12 @@ class CusDrawer extends StatelessWidget {
                       children: [
                         IconButton(
                             onPressed: () {},
-                            icon: FaIcon(FontAwesomeIcons.code)),
+                            icon: const FaIcon(FontAwesomeIcons.code)),
                         Text(
                           "Club Events",
                           style: GoogleFonts.notoSerif(
                               fontWeight: FontWeight.w600,
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 17),
                         ),
                       ],
@@ -88,7 +90,7 @@ class CusDrawer extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => GctNews(),
+                        builder: (context) => const GctNews(),
                       ),
                     );
                   },
@@ -99,12 +101,12 @@ class CusDrawer extends StatelessWidget {
                       children: [
                         IconButton(
                             onPressed: () {},
-                            icon: FaIcon(FontAwesomeIcons.newspaper)),
+                            icon: const FaIcon(FontAwesomeIcons.newspaper)),
                         Text(
                           "GCT News",
                           style: GoogleFonts.notoSerif(
                               fontWeight: FontWeight.w600,
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 17),
                         ),
                       ],
@@ -116,7 +118,7 @@ class CusDrawer extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => JobOpportunities(),
+                        builder: (context) => const JobOpportunities(),
                       ),
                     );
                   },
@@ -127,12 +129,12 @@ class CusDrawer extends StatelessWidget {
                       children: [
                         IconButton(
                             onPressed: () {},
-                            icon: FaIcon(FontAwesomeIcons.idCard)),
+                            icon: const FaIcon(FontAwesomeIcons.idCard)),
                         Text(
                           "Job Opportunities",
                           style: GoogleFonts.notoSerif(
                               fontWeight: FontWeight.w600,
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 17),
                         ),
                       ],
@@ -144,7 +146,7 @@ class CusDrawer extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => GctCalender(),
+                        builder: (context) => const GctCalender(),
                       ),
                     );
                   },
@@ -155,12 +157,12 @@ class CusDrawer extends StatelessWidget {
                       children: [
                         IconButton(
                             onPressed: () {},
-                            icon: FaIcon(FontAwesomeIcons.calendarCheck)),
+                            icon: const FaIcon(FontAwesomeIcons.calendarCheck)),
                         Text(
                           "Annual Schedule",
                           style: GoogleFonts.notoSerif(
                               fontWeight: FontWeight.w600,
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 17),
                         ),
                       ],
@@ -172,7 +174,7 @@ class CusDrawer extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Quiz(),
+                        builder: (context) => const Quiz(),
                       ),
                     );
                   },
@@ -183,12 +185,12 @@ class CusDrawer extends StatelessWidget {
                       children: [
                         IconButton(
                             onPressed: () {},
-                            icon: FaIcon(FontAwesomeIcons.question)),
+                            icon: const FaIcon(FontAwesomeIcons.question)),
                         Text(
                           "Quiz",
                           style: GoogleFonts.notoSerif(
                               fontWeight: FontWeight.w600,
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 17),
                         ),
                       ],
@@ -200,7 +202,7 @@ class CusDrawer extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => JoinCodingClub(),
+                        builder: (context) => const JoinCodingClub(),
                       ),
                     );
                     // print("hello");
@@ -212,22 +214,22 @@ class CusDrawer extends StatelessWidget {
                       children: [
                         IconButton(
                             onPressed: () {},
-                            icon: FaIcon(FontAwesomeIcons.registered)),
+                            icon: const FaIcon(FontAwesomeIcons.registered)),
                         Text(
                           "Join Coding Club",
                           style: GoogleFonts.notoSerif(
                               fontWeight: FontWeight.w600,
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 17),
                         )
                       ],
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
-                Divider()
+                const Divider()
               ]),
             )
           ],

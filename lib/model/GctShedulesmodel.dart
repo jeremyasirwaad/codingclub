@@ -11,7 +11,7 @@ class GctSchedulesmodel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -37,12 +37,12 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['eventname'] = this.eventname;
-    data['starttime'] = this.starttime;
-    data['endtime'] = this.endtime;
-    data['location'] = this.location;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['eventname'] = eventname;
+    data['starttime'] = starttime;
+    data['endtime'] = endtime;
+    data['location'] = location;
     return data;
   }
 }

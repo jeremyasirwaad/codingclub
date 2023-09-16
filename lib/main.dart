@@ -1,25 +1,16 @@
 import 'package:codingclub/Components/HiddenDrawer.dart';
-import 'package:codingclub/Pages/GctNews.dart';
-import 'package:codingclub/Pages/JobOpportunities.dart';
-import 'package:codingclub/Pages/JoinCodingClub.dart';
-import 'package:codingclub/Pages/Quiz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './Pages/HomePage.dart';
-import './Pages/SplashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import './Pages/EventsDetails.dart';
 import './firebase_analytics.dart';
 import 'package:upgrader/upgrader.dart';
 
-final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
 
   print("Handling a background message: ${message.messageId}");
@@ -35,24 +26,27 @@ Future<void> main() async {
       .then((value) => print("done"));
   final fcmToken = await FirebaseMessaging.instance.getToken();
   print(fcmToken);
-  RemoteMessage? initialMessage =
-      await FirebaseMessaging.instance.getInitialMessage();
-  if (initialMessage != null) {
-    _handleMessage(initialMessage);
-  }
+  FirebaseMessaging.instance.getInitialMessage().then((value) {
+    if (value != null) {
+      _handleMessage(value);
+    }
+  });
+
   FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 void _handleMessage(RemoteMessage message) {
   print("Entered Through Notification");
   print(message.data);
   print(message.data['page']);
-  navigatorKey.currentState!.pushNamed(message.data['page']);
+  navigatorKey.currentState?.pushNamed(message.data['page']);
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // get generateRoute => null;
 
   @override
@@ -67,22 +61,28 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [Analytics.observer],
       // onGenerateRoute: generateRoute,
       routes: {
-        '/': (context) => HiddenDrawer(
-              page: 0,
+        '/': (context) => UpgradeAlert(
+              upgrader: Upgrader(
+                  shouldPopScope: () => true,
+                  durationUntilAlertAgain: const Duration(days: 2),
+                  canDismissDialog: true),
+              child: const HiddenDrawer(
+                page: 0,
+              ),
             ),
-        '/news': (context) => HiddenDrawer(
+        '/news': (context) => const HiddenDrawer(
               page: 1,
             ),
-        '/job': (context) => HiddenDrawer(
+        '/job': (context) => const HiddenDrawer(
               page: 2,
             ),
-        '/annual': (context) => HiddenDrawer(
+        '/annual': (context) => const HiddenDrawer(
               page: 3,
             ),
-        '/quiz': (context) => HiddenDrawer(
+        '/quiz': (context) => const HiddenDrawer(
               page: 4,
             ),
-        '/join': (context) => HiddenDrawer(
+        '/join': (context) => const HiddenDrawer(
               page: 5,
             ),
       },

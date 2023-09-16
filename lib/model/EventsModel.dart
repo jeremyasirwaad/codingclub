@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 class EventsModel {
   List<EventData>? data;
@@ -9,13 +8,13 @@ class EventsModel {
     if (json['data'] != null) {
       data = <EventData>[];
       json['data'].forEach((v) {
-        data!.add(new EventData.fromJson(v));
+        data!.add(EventData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -32,15 +31,15 @@ class EventData {
   EventData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     attributes = json['attributes'] != null
-        ? new Attributes.fromJson(json['attributes'])
+        ? Attributes.fromJson(json['attributes'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.attributes != null) {
-      data['attributes'] = this.attributes!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    if (attributes != null) {
+      data['attributes'] = attributes!.toJson();
     }
     return data;
   }
@@ -84,17 +83,17 @@ class Attributes {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['AppTitle'] = this.appTitle;
-    data['AppEventDate'] = this.appEventDate;
-    data['AppShortDescription'] = this.appShortDescription;
-    data['App_Resgisteration_Gform_Link'] = this.appResgisterationGformLink;
-    data['App_Event_Data'] = this.appEventData;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['publishedAt'] = this.publishedAt;
-    data['App_Poster'] = this.appPoster;
-    data['isOpen'] = this.isOpen;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['AppTitle'] = appTitle;
+    data['AppEventDate'] = appEventDate;
+    data['AppShortDescription'] = appShortDescription;
+    data['App_Resgisteration_Gform_Link'] = appResgisterationGformLink;
+    data['App_Event_Data'] = appEventData;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['publishedAt'] = publishedAt;
+    data['App_Poster'] = appPoster;
+    data['isOpen'] = isOpen;
     return data;
   }
 }

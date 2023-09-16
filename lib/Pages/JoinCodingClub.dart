@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:codingclub/Components/Drawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import './Constants.dart' as Constants;
 
 class JoinCodingClub extends StatefulWidget {
-  JoinCodingClub({Key? key}) : super(key: key);
+  const JoinCodingClub({Key? key}) : super(key: key);
 
   @override
   State<JoinCodingClub> createState() => _JoinCodingClubState();
@@ -14,12 +13,12 @@ class JoinCodingClub extends StatefulWidget {
 
 class _JoinCodingClubState extends State<JoinCodingClub> {
   final formGlobalKey = GlobalKey<FormState>();
-  TextEditingController _FullName = TextEditingController();
-  TextEditingController _Department = TextEditingController();
-  TextEditingController _RollNo = TextEditingController();
-  TextEditingController _WhatsappNo = TextEditingController();
-  TextEditingController _Email = TextEditingController();
-  TextEditingController _Batch = TextEditingController();
+  final TextEditingController _FullName = TextEditingController();
+  final TextEditingController _Department = TextEditingController();
+  final TextEditingController _RollNo = TextEditingController();
+  final TextEditingController _WhatsappNo = TextEditingController();
+  final TextEditingController _Email = TextEditingController();
+  final TextEditingController _Batch = TextEditingController();
 
   Future<dynamic> senddata() async {
     Map<String, dynamic> body = {
@@ -75,7 +74,7 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
       //     )),
       // drawer: CusDrawer(),
       body: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           width: double.infinity,
           color: Colors.white,
           child: ListView(
@@ -95,10 +94,10 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
               Text(
                 "Enter the details below to start your Journey",
                 style: GoogleFonts.notoSerif(
-                    color: Color.fromARGB(255, 111, 111, 111), fontSize: 13),
+                    color: const Color.fromARGB(255, 111, 111, 111), fontSize: 13),
               ),
               Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 height: 600,
                 child: Form(
                   key: formGlobalKey,
@@ -113,7 +112,7 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
                             }
                             return null;
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               errorStyle: TextStyle(height: 0),
                               label: Text("Full Name"),
                               prefixIcon: Icon(Icons.person),
@@ -127,7 +126,7 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
                             }
                             return null;
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               errorStyle: TextStyle(height: 0),
                               label: Text("Department (ECE, IT, CSC, etc)"),
                               prefixIcon: Icon(Icons.build),
@@ -141,7 +140,7 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
                             }
                             return null;
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               errorStyle: TextStyle(height: 0),
                               prefixIcon: Icon(Icons.format_list_numbered),
                               label: Text("Roll No"),
@@ -156,7 +155,7 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
                               return "Enter Valid batch";
                             }
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               errorStyle: TextStyle(height: 0),
                               prefixIcon: Icon(Icons.numbers_rounded),
                               label: Text("Batch (2024, 2023, etc)"),
@@ -165,12 +164,13 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
                         TextFormField(
                           controller: _WhatsappNo,
                           validator: (value) {
-                            if (value!.length != 10)
+                            if (value!.length != 10) {
                               return '';
-                            else
+                            } else {
                               return null;
+                            }
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               errorStyle: TextStyle(height: 0),
                               label: Text("Whatapp No"),
                               prefixIcon: Icon(Icons.phone),
@@ -180,7 +180,7 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
                           controller: _Email,
                           validator: (input) =>
                               input!.isValidEmail() ? null : "Check your email",
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               errorStyle: TextStyle(height: 0),
                               prefixIcon: Icon(Icons.mail),
                               label: Text("Email"),
@@ -188,9 +188,8 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Color.fromRGBO(255, 208, 0, 1),
-                              onPrimary: Colors.black,
-                              textStyle: TextStyle(color: Colors.black)),
+                              foregroundColor: Colors.black, backgroundColor: const Color.fromRGBO(255, 208, 0, 1),
+                              textStyle: const TextStyle(color: Colors.black)),
                           onPressed: () {
                             if (formGlobalKey.currentState!.validate()) {
                               senddata();
@@ -207,15 +206,15 @@ class _JoinCodingClubState extends State<JoinCodingClub> {
                           ),
                         ),
                         Text(
-                          "Interested to Contribute for the app ?",
+                          "Interested to Contribute to the app ?",
                           style: GoogleFonts.notoSerif(
-                              color: Color.fromARGB(255, 111, 111, 111),
+                              color: const Color.fromARGB(255, 111, 111, 111),
                               fontSize: 14),
                         ),
                         Text(
                           "Contact +919843632220",
                           style: GoogleFonts.notoSerif(
-                              color: Color.fromARGB(255, 111, 111, 111),
+                              color: const Color.fromARGB(255, 111, 111, 111),
                               fontSize: 14),
                         ),
                       ]),
@@ -239,9 +238,8 @@ showAlertDialog(BuildContext context) {
   // set up the button
   Widget okButton = TextButton(
     style: ElevatedButton.styleFrom(
-        primary: Color.fromRGBO(255, 208, 0, 1),
-        onPrimary: Colors.black,
-        textStyle: TextStyle(color: Colors.black)),
+        foregroundColor: Colors.black, backgroundColor: const Color.fromRGBO(255, 208, 0, 1),
+        textStyle: const TextStyle(color: Colors.black)),
     child: Text(
       "OK",
       style: GoogleFonts.notoSerif(fontSize: 16),
@@ -279,9 +277,8 @@ showAlertDialog2(BuildContext context) {
   // set up the button
   Widget okButton = TextButton(
     style: ElevatedButton.styleFrom(
-        primary: Color.fromRGBO(255, 208, 0, 1),
-        onPrimary: Colors.black,
-        textStyle: TextStyle(color: Colors.black)),
+        foregroundColor: Colors.black, backgroundColor: const Color.fromRGBO(255, 208, 0, 1),
+        textStyle: const TextStyle(color: Colors.black)),
     child: Text(
       "OK",
       style: GoogleFonts.notoSerif(fontSize: 16),

@@ -1,15 +1,13 @@
 import 'dart:convert';
 import 'package:codingclub/model/EventsModel.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../Components/ClubEvents.dart';
-import '../Components/Drawer.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import './Constants.dart' as Constants;
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -65,7 +63,7 @@ class _HomePageState extends State<HomePage> {
         width: double.infinity,
         child: !isloading
             ? ListView(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                     // left: 16,
                     // right: 16,
                     // top: 22,
@@ -87,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                             _Events[index].attributes!.isOpen
                                 as bool)).reversed.toList()
                   ])
-            : Center(
+            : const Center(
                 child: SpinKitCircle(
                   color: Color.fromARGB(208, 0, 0, 0),
                   size: 50.0,

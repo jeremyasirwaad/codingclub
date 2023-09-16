@@ -1,24 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
 import 'package:codingclub/Pages/LeaderBoard.dart';
-import 'package:codingclub/model/EventsModel.dart';
 import 'package:codingclub/model/QuizModel.dart' as qm;
 import 'package:codingclub/model/Quizuser.dart' as qu;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/retry.dart';
 import 'package:page_transition/page_transition.dart';
-import '../Components/ClubEvents.dart';
-import '../Components/Drawer.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import './Constants.dart' as Constants;
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Quiz extends StatefulWidget {
-  Quiz({Key? key}) : super(key: key);
+  const Quiz({Key? key}) : super(key: key);
 
   @override
   State<Quiz> createState() => _QuizState();
@@ -28,7 +22,7 @@ class _QuizState extends State<Quiz> {
   List<qm.Data> _Quiz = [];
   bool isloading = true;
   int? checkboxValue;
-  TextEditingController _RollNo = TextEditingController();
+  final TextEditingController _RollNo = TextEditingController();
   bool _isButtonVisible = false;
 
   bool checktime() {
@@ -44,7 +38,8 @@ class _QuizState extends State<Quiz> {
 
   Future<dynamic> fetchAlbum() async {
     final response = await http.get(
-      Uri.parse('${Constants.ProductionLink}/api/weekly-quizs'),
+      Uri.parse(
+          '${Constants.ProductionLink}/api/weekly-quizs?sort=quiz_id:desc'),
     );
 
     if (response.statusCode == 200) {
@@ -67,6 +62,24 @@ class _QuizState extends State<Quiz> {
     Map<String, String> headers = {
       'Content-Type': 'application/json',
     };
+
+    if (_RollNo.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: const Color.fromRGBO(255, 208, 0, 1),
+        content: Text('Enter Roll Number to Submit !',
+            style: GoogleFonts.notoSerif(color: Colors.black, fontSize: 16)),
+      ));
+      return;
+    }
+
+    if (checkboxValue == null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: const Color.fromRGBO(255, 208, 0, 1),
+        content: Text('Choose an answer to submit !',
+            style: GoogleFonts.notoSerif(color: Colors.black, fontSize: 16)),
+      ));
+      return;
+    }
 
     final response = await http.get(
         Uri.parse(
@@ -259,6 +272,8 @@ class _QuizState extends State<Quiz> {
       //             fontSize: 22))),
       // drawer: CusDrawer(),
       bottomNavigationBar: Container(
+        height: 50,
+        color: const Color.fromRGBO(255, 208, 0, 1),
         child: Row(
           children: [
             Expanded(
@@ -275,7 +290,7 @@ class _QuizState extends State<Quiz> {
                     context,
                     PageTransition(
                         type: PageTransitionType.rightToLeft,
-                        child: LeaderBoard()));
+                        child: const LeaderBoard()));
               },
               child: Container(
                 height: double.infinity,
@@ -290,18 +305,16 @@ class _QuizState extends State<Quiz> {
             ))
           ],
         ),
-        height: 50,
-        color: Color.fromRGBO(255, 208, 0, 1),
       ),
       body: !isloading
           ? SingleChildScrollView(
               child: Container(
               width: double.infinity,
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -309,34 +322,34 @@ class _QuizState extends State<Quiz> {
                     textAlign: TextAlign.start,
                     style: GoogleFonts.notoSerif(
                         fontWeight: FontWeight.w600,
-                        color: Color.fromARGB(255, 0, 0, 0),
+                        color: const Color.fromARGB(255, 0, 0, 0),
                         fontSize: 17),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
                     _Quiz[_Quiz.length - 1].attributes!.question as String,
                     textAlign: TextAlign.start,
                     style: GoogleFonts.notoSerif(
-                        color: Color.fromARGB(255, 0, 0, 0), fontSize: 17),
+                        color: const Color.fromARGB(255, 0, 0, 0), fontSize: 17),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "(a) ${_Quiz[_Quiz.length - 1].attributes!.op1}",
                           style: GoogleFonts.notoSerif(
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 17),
                         ),
                         Container(
-                            margin: EdgeInsets.only(left: 20),
+                            margin: const EdgeInsets.only(left: 20),
                             child: Radio<int?>(
                               value: 1,
                               groupValue: checkboxValue,
@@ -350,18 +363,18 @@ class _QuizState extends State<Quiz> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "(b) ${_Quiz[_Quiz.length - 1].attributes!.op2}",
                           style: GoogleFonts.notoSerif(
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 17),
                         ),
                         Container(
-                            margin: EdgeInsets.only(left: 20),
+                            margin: const EdgeInsets.only(left: 20),
                             child: Radio<int?>(
                               value: 2,
                               groupValue: checkboxValue,
@@ -375,18 +388,18 @@ class _QuizState extends State<Quiz> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "(c) ${_Quiz[_Quiz.length - 1].attributes!.op3}",
                           style: GoogleFonts.notoSerif(
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 17),
                         ),
                         Container(
-                            margin: EdgeInsets.only(left: 20),
+                            margin: const EdgeInsets.only(left: 20),
                             child: Radio<int?>(
                               value: 3,
                               groupValue: checkboxValue,
@@ -400,18 +413,18 @@ class _QuizState extends State<Quiz> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "(d) ${_Quiz[_Quiz.length - 1].attributes!.op4}",
                           style: GoogleFonts.notoSerif(
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 17),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 20),
+                          margin: const EdgeInsets.only(left: 20),
                           child: Radio<int?>(
                             value: 4,
                             groupValue: checkboxValue,
@@ -430,10 +443,10 @@ class _QuizState extends State<Quiz> {
                           ? Column(
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(top: 40),
+                                  margin: const EdgeInsets.only(top: 40),
                                   child: Center(
                                     child: Text(
-                                        "Correct Answer is ${getAnswer(int.parse(_Quiz[_Quiz.length - 1].attributes!.ans![2] as String))}",
+                                        "Correct Answer is ${getAnswer(int.parse(_Quiz[_Quiz.length - 1].attributes!.ans![2]))}",
                                         textAlign: TextAlign.start,
                                         style: GoogleFonts.notoSerif(
                                             fontWeight: FontWeight.w600,
@@ -441,7 +454,7 @@ class _QuizState extends State<Quiz> {
                                             fontSize: 17)),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text("Stay tuned, Next Quiz at 10AM",
@@ -451,7 +464,7 @@ class _QuizState extends State<Quiz> {
                               ],
                             )
                           : Container()),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   !checktime()
@@ -462,38 +475,38 @@ class _QuizState extends State<Quiz> {
                                   child: TextFormField(
                                     controller: _RollNo,
                                     validator: (value) {
-                                      if (value!.length != 10)
+                                      if (value!.length != 10) {
                                         return '';
-                                      else
+                                      } else {
                                         return null;
+                                      }
                                     },
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                         errorStyle: TextStyle(height: 0),
                                         label: Text("Roll Number"),
                                         prefixIcon: Icon(Icons.numbers),
                                         border: OutlineInputBorder()),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Container(
-                                  child: Text(
+                                  child: const Text(
                                     "* Roll No will be used for leaderboard",
                                     style: TextStyle(color: Colors.red),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Container(
                                   // padding: EdgeInsets.all(8),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary: Color.fromRGBO(255, 208, 0, 1),
-                                        onPrimary: Colors.black,
+                                        foregroundColor: Colors.black, backgroundColor: const Color.fromRGBO(255, 208, 0, 1),
                                         textStyle:
-                                            TextStyle(color: Colors.black)),
+                                            const TextStyle(color: Colors.black)),
                                     onPressed: () {
                                       senddata();
                                     },
@@ -506,14 +519,14 @@ class _QuizState extends State<Quiz> {
                                 )
                               ],
                             )
-                          : Container(
+                          : SizedBox(
                               width: double.infinity,
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(100),
-                                      child: Container(
+                                      child: SizedBox(
                                         height: 80,
                                         width: 80,
                                         child: Image.network(
@@ -536,7 +549,7 @@ class _QuizState extends State<Quiz> {
                 ],
               ),
             ))
-          : Center(
+          : const Center(
               child: SpinKitCircle(
                 color: Color.fromARGB(208, 0, 0, 0),
                 size: 50.0,
@@ -550,9 +563,8 @@ showAlertDialog(BuildContext context) {
   // set up the button
   Widget okButton = TextButton(
     style: ElevatedButton.styleFrom(
-        primary: Color.fromRGBO(255, 208, 0, 1),
-        onPrimary: Colors.black,
-        textStyle: TextStyle(color: Colors.black)),
+        foregroundColor: Colors.black, backgroundColor: const Color.fromRGBO(255, 208, 0, 1),
+        textStyle: const TextStyle(color: Colors.black)),
     child: Text(
       "OK",
       style: GoogleFonts.notoSerif(fontSize: 16),
@@ -590,9 +602,8 @@ showAlertDialog2(BuildContext context) {
   // set up the button
   Widget okButton = TextButton(
     style: ElevatedButton.styleFrom(
-        primary: Color.fromRGBO(255, 208, 0, 1),
-        onPrimary: Colors.black,
-        textStyle: TextStyle(color: Colors.black)),
+        foregroundColor: Colors.black, backgroundColor: const Color.fromRGBO(255, 208, 0, 1),
+        textStyle: const TextStyle(color: Colors.black)),
     child: Text(
       "OK",
       style: GoogleFonts.notoSerif(fontSize: 16),

@@ -1,20 +1,8 @@
-import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
-import 'dart:isolate';
-import 'dart:ui';
 import 'package:codingclub/Components/HiddenDrawer.dart';
-import 'package:codingclub/Pages/HomePage.dart';
-import 'package:codingclub/model/AppUpdate.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:path_provider/path_provider.dart';
-import './Constants.dart' as Constants;
-import '../firebase_analytics.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -24,7 +12,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  double _progress = 0.0;
+  final double _progress = 0.0;
 
   @override
   void initState() {
@@ -67,11 +55,11 @@ class _SplashScreenState extends State<SplashScreen> {
     PermissionStatus Notificationstatus =
         await Permission.notification.request();
     if (Notificationstatus.isGranted) {
-      await Future.delayed(Duration(milliseconds: 3000), () {
+      await Future.delayed(const Duration(milliseconds: 3000), () {
         Navigator.pushReplacement(
             context,
             PageTransition(
-                type: PageTransitionType.rightToLeft, child: HiddenDrawer()));
+                type: PageTransitionType.rightToLeft, child: const HiddenDrawer()));
       });
     }
 
@@ -136,9 +124,8 @@ showAlertDialog(BuildContext context) {
   // set up the button
   Widget okButton = TextButton(
     style: ElevatedButton.styleFrom(
-        primary: Color.fromRGBO(255, 208, 0, 1),
-        onPrimary: Colors.black,
-        textStyle: TextStyle(color: Colors.black)),
+        foregroundColor: Colors.black, backgroundColor: const Color.fromRGBO(255, 208, 0, 1),
+        textStyle: const TextStyle(color: Colors.black)),
     child: Text(
       "Okay",
       style: GoogleFonts.notoSerif(fontSize: 14),
@@ -147,15 +134,14 @@ showAlertDialog(BuildContext context) {
       Navigator.pushReplacement(
           context,
           PageTransition(
-              type: PageTransitionType.rightToLeft, child: HiddenDrawer()));
+              type: PageTransitionType.rightToLeft, child: const HiddenDrawer()));
     },
   );
 
   Widget okButton2 = TextButton(
     style: ElevatedButton.styleFrom(
-        primary: Color.fromRGBO(255, 208, 0, 1),
-        onPrimary: Colors.black,
-        textStyle: TextStyle(color: Colors.black)),
+        foregroundColor: Colors.black, backgroundColor: const Color.fromRGBO(255, 208, 0, 1),
+        textStyle: const TextStyle(color: Colors.black)),
     child: Text(
       "Enable",
       style: GoogleFonts.notoSerif(fontSize: 14),

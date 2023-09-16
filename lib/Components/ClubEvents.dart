@@ -1,9 +1,12 @@
+import 'package:codingclub/Components/Skeleton.dart';
+
 import '../Pages/EventsDetails.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ClubeventCard extends StatefulWidget {
-  ClubeventCard(
+  const ClubeventCard(
       this.imagesrc,
       this.date,
       this.discription,
@@ -11,7 +14,7 @@ class ClubeventCard extends StatefulWidget {
       this.app_event_data,
       this.appResgisterationGformLink,
       this.type,
-      this.isOpen);
+      this.isOpen, {super.key});
   final String imagesrc;
   final String date;
   final String discription;
@@ -38,22 +41,27 @@ class _ClubeventCardState extends State<ClubeventCard> {
                 widget.app_event_data,
                 widget.appResgisterationGformLink,
                 widget.title,
-                widget.type, widget.isOpen),
+                widget.type,
+                widget.isOpen),
           ),
         );
       },
       child: Card(
         child: Container(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           // height: 130,
           width: double.infinity,
           child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Image.network(
-              widget.imagesrc,
-              height: 110,
-              width: 110,
-            ),
-            SizedBox(
+            CachedNetworkImage(
+                height: 110,
+                width: 110,
+                imageUrl: widget.imagesrc,
+                placeholder: (context, url) => const Skeleton(
+                      height: 110,
+                      width: 110,
+                    ),
+                errorWidget: (context, url, error) => const Icon(Icons.error)),
+            const SizedBox(
               width: 10,
             ),
             Expanded(
@@ -62,7 +70,7 @@ class _ClubeventCardState extends State<ClubeventCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.title as String,
+                      widget.title,
                       style: GoogleFonts.notoSerif(
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
@@ -71,23 +79,23 @@ class _ClubeventCardState extends State<ClubeventCard> {
                     Text(
                       widget.date,
                       style: GoogleFonts.notoSerif(
-                          color: Color.fromARGB(255, 111, 111, 111),
+                          color: const Color.fromARGB(255, 111, 111, 111),
                           fontSize: 13),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       widget.discription,
                       style: GoogleFonts.notoSerif(
-                          color: Color.fromARGB(255, 111, 111, 111),
+                          color: const Color.fromARGB(255, 111, 111, 111),
                           fontSize: 13),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
                       "Read More",
                       style: GoogleFonts.notoSerif(
-                          color: Color.fromARGB(255, 0, 0, 0), fontSize: 13),
+                          color: const Color.fromARGB(255, 0, 0, 0), fontSize: 13),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                   ]),
             )
           ]),

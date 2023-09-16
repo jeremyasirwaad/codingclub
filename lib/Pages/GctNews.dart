@@ -1,16 +1,13 @@
 import 'dart:convert';
-import 'package:codingclub/Components/Drawer.dart';
 import 'package:codingclub/Components/GctNewsCard.dart';
 import 'package:codingclub/model/NewsModel.dart';
 import 'package:http/http.dart' as http;
-import '../Pages/EventsDetails.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import './Constants.dart' as Constants;
 
 class GctNews extends StatefulWidget {
-  GctNews({Key? key}) : super(key: key);
+  const GctNews({Key? key}) : super(key: key);
 
   @override
   State<GctNews> createState() => _GctNewsState();
@@ -71,7 +68,7 @@ class _GctNewsState extends State<GctNews> {
                     _News[index].attributes!.appData as String),
               ).reversed.toList(),
             ])
-          : Center(
+          : const Center(
               child: SpinKitCircle(
                 color: Color.fromARGB(208, 0, 0, 0),
                 size: 50.0,

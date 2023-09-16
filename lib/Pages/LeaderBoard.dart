@@ -1,24 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
 import 'package:codingclub/Pages/Quiz.dart';
-import 'package:codingclub/model/EventsModel.dart';
-import 'package:codingclub/model/QuizModel.dart' as qm;
 import 'package:codingclub/model/Quizuser.dart' as qu;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/retry.dart';
 import 'package:page_transition/page_transition.dart';
-import '../Components/ClubEvents.dart';
-import '../Components/Drawer.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import './Constants.dart' as Constants;
-import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LeaderBoard extends StatefulWidget {
-  LeaderBoard({Key? key}) : super(key: key);
+  const LeaderBoard({Key? key}) : super(key: key);
 
   @override
   State<LeaderBoard> createState() => _LeaderBoardState();
@@ -65,16 +57,18 @@ class _LeaderBoardState extends State<LeaderBoard> {
     return Scaffold(
       appBar: AppBar(
           toolbarHeight: 70,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
           elevation: 0,
           title: Text("LeaderBoard",
               style: GoogleFonts.notoSerif(
                   fontWeight: FontWeight.w600,
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: const Color.fromARGB(255, 0, 0, 0),
                   fontSize: 22))),
       // drawer: CusDrawer(),
       bottomNavigationBar: Container(
+        height: 50,
+        color: const Color.fromRGBO(255, 208, 0, 1),
         child: Row(
           children: [
             Expanded(
@@ -83,7 +77,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
                 Navigator.pop(
                     context,
                     PageTransition(
-                        type: PageTransitionType.rightToLeft, child: Quiz()));
+                        type: PageTransitionType.rightToLeft, child: const Quiz()));
               },
               child: Container(
                 height: double.infinity,
@@ -99,7 +93,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
             Expanded(
                 child: Container(
               height: double.infinity,
-              color: Color.fromRGBO(255, 208, 0, 1),
+              color: const Color.fromRGBO(255, 208, 0, 1),
               child: Center(
                 child: Text("Leader Board",
                     textAlign: TextAlign.center,
@@ -109,12 +103,10 @@ class _LeaderBoardState extends State<LeaderBoard> {
             ))
           ],
         ),
-        height: 50,
-        color: Color.fromRGBO(255, 208, 0, 1),
       ),
       body: !isloading
           ? ListView(children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
@@ -141,7 +133,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
               ...List.generate(
                   standing.length,
                   (index) => Container(
-                        margin: EdgeInsets.only(top: 20),
+                        margin: const EdgeInsets.only(top: 20),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -164,7 +156,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
                             ]),
                       )).toList(),
             ])
-          : Center(
+          : const Center(
               child: SpinKitCircle(
                 color: Color.fromARGB(208, 0, 0, 0),
                 size: 50.0,

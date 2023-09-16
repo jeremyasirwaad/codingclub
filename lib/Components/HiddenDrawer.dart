@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 
 class HiddenDrawer extends StatefulWidget {
-  HiddenDrawer({this.page = 0});
+  const HiddenDrawer({super.key, this.page = 0});
   final int page;
 
   @override
@@ -28,49 +28,49 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
           ItemHiddenMenu(
             name: "Club Events",
             baseStyle: GoogleFonts.notoSerif(
-                color: Color.fromARGB(255, 0, 0, 0), fontSize: 16),
+                color: const Color.fromARGB(255, 0, 0, 0), fontSize: 16),
             selectedStyle: GoogleFonts.notoSerif(
                 fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 16),
           ),
-          HomePage()),
+          const HomePage()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
             name: "GCT News",
             baseStyle: GoogleFonts.notoSerif(
                 // fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 16),
             selectedStyle: GoogleFonts.notoSerif(
                 fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 16),
           ),
-          GctNews()),
+          const GctNews()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
             name: "Job Opportunities",
             baseStyle: GoogleFonts.notoSerif(
                 // fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 16),
             selectedStyle: GoogleFonts.notoSerif(
                 fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 16),
           ),
-          JobOpportunities()),
+          const JobOpportunities()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
             name: "Annual Schedule",
             baseStyle: GoogleFonts.notoSerif(
                 // fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 16),
             selectedStyle: GoogleFonts.notoSerif(
                 fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 16),
           ),
           const GctCalender()),
@@ -79,36 +79,36 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
             name: "Daily Quiz",
             baseStyle: GoogleFonts.notoSerif(
                 // fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 16),
             selectedStyle: GoogleFonts.notoSerif(
                 fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 16),
           ),
-          Quiz()),
+          const Quiz()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
             name: "Join Coding Club",
             baseStyle: GoogleFonts.notoSerif(
                 // fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 16),
             selectedStyle: GoogleFonts.notoSerif(
                 fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 16),
           ),
-          JoinCodingClub()),
+          const JoinCodingClub()),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
     return HiddenDrawerMenu(
-      backgroundColorMenu: Color.fromARGB(255, 247, 204, 77),
+      backgroundColorMenu: const Color.fromARGB(255, 247, 204, 77),
       screens: _pages,
-      leadingAppBar: Icon(
+      leadingAppBar: const Icon(
         Icons.menu,
         color: Colors.black,
       ),
@@ -117,7 +117,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
       backgroundColorAppBar: Colors.white,
       styleAutoTittleName: GoogleFonts.notoSerif(
           fontWeight: FontWeight.w600,
-          color: Color.fromARGB(255, 0, 0, 0),
+          color: const Color.fromARGB(255, 0, 0, 0),
           fontSize: 22),
       slidePercent: 50,
     );

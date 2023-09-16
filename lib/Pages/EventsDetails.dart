@@ -1,13 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:codingclub/Components/Skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../Components/ClubEvents.dart';
-import '../Components/Drawer.dart';
 import '../firebase_analytics.dart';
 
 class EventsDetails extends StatefulWidget {
-  EventsDetails(this.imagesrc, this.app_event_data,
-      this.appResgisterationGformLink, this.title, this.type, this.isOpen);
+  const EventsDetails(this.imagesrc, this.app_event_data,
+      this.appResgisterationGformLink, this.title, this.type, this.isOpen, {super.key});
   final String imagesrc;
   final String type;
   // ignore: non_constant_identifier_names
@@ -30,13 +30,14 @@ class _EventsDetailsState extends State<EventsDetails> {
 
   void _logevent() async {
     await Analytics.analytics.logEvent(
-      name: "Viewed ${Type}",
+      name: "Viewed $Type",
       parameters: <String, dynamic>{
         'title': widget.title,
       },
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     Future<void> _launchInBrowser(Uri url) async {
       if (!await launchUrl(
@@ -60,8 +61,8 @@ class _EventsDetailsState extends State<EventsDetails> {
           child: Container(
             height: 50,
             color: widget.isOpen
-                ? Color.fromARGB(255, 122, 34, 255)
-                : Color.fromARGB(255, 255, 67, 54),
+                ? const Color.fromARGB(255, 122, 34, 255)
+                : const Color.fromARGB(255, 255, 67, 54),
             child: Center(
               child: Text(
                 widget.isOpen == true
@@ -71,7 +72,7 @@ class _EventsDetailsState extends State<EventsDetails> {
                     : "Registeration Closed",
                 style: GoogleFonts.notoSerif(
                     fontWeight: FontWeight.w600,
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     fontSize: 20),
               ),
             ),
@@ -80,14 +81,14 @@ class _EventsDetailsState extends State<EventsDetails> {
       ),
       appBar: AppBar(
           toolbarHeight: 70,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
             widget.type == 'event' ? "Club Events" : "Job Opportunities",
             style: GoogleFonts.notoSerif(
                 fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 22),
           )),
       // drawer: CusDrawer(),
@@ -100,21 +101,26 @@ class _EventsDetailsState extends State<EventsDetails> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: Text(
                   widget.title,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.notoSerif(
                       fontWeight: FontWeight.w600,
-                      color: Color.fromARGB(255, 0, 0, 0),
+                      color: const Color.fromARGB(255, 0, 0, 0),
                       fontSize: 22),
                 ),
               ),
-              Image.network(
-                widget.imagesrc,
-                height: 210,
-                width: 210,
-              ),
+              CachedNetworkImage(
+                  height: 210,
+                  width: 210,
+                  imageUrl: widget.imagesrc,
+                  placeholder: (context, url) => const Skeleton(
+                        height: 210,
+                        width: 210,
+                      ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error))
+
               // Container(
               //   width: double.infinity,
               //   padding: EdgeInsets.all(10),
@@ -175,11 +181,11 @@ class _EventsDetailsState extends State<EventsDetails> {
             ],
           ),
           Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Text(
                 widget.app_event_data,
                 style: GoogleFonts.notoSerif(
-                    color: Color.fromARGB(255, 0, 0, 0), fontSize: 16),
+                    color: const Color.fromARGB(255, 0, 0, 0), fontSize: 16),
               ))
         ]),
       ),

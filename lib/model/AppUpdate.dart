@@ -4,11 +4,11 @@ class appupdate {
   appupdate({this.data});
 
   appupdate.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new UpdateData.fromJson(json['data']) : null;
+    data = json['data'] != null ? UpdateData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -25,15 +25,15 @@ class UpdateData {
   UpdateData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     attributes = json['attributes'] != null
-        ? new Attributes.fromJson(json['attributes'])
+        ? Attributes.fromJson(json['attributes'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.attributes != null) {
-      data['attributes'] = this.attributes!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    if (attributes != null) {
+      data['attributes'] = attributes!.toJson();
     }
     return data;
   }
@@ -62,12 +62,12 @@ class Attributes {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['version'] = this.version;
-    data['apklink'] = this.apklink;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['publishedAt'] = this.publishedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['version'] = version;
+    data['apklink'] = apklink;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['publishedAt'] = publishedAt;
     return data;
   }
 }

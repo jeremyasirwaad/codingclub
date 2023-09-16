@@ -1,12 +1,12 @@
-import 'package:codingclub/Components/Drawer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:codingclub/Components/Skeleton.dart';
 import 'package:codingclub/Pages/GctNewsInnerPage.dart';
 
-import '../Pages/EventsDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GctNewsCard extends StatefulWidget {
-  GctNewsCard(this.NewsTitle, this.NewsFlyer, this.NewsDesc, this.NewsData);
+  const GctNewsCard(this.NewsTitle, this.NewsFlyer, this.NewsDesc, this.NewsData, {super.key});
   final String NewsTitle;
   final String NewsFlyer;
   final String NewsDesc;
@@ -20,7 +20,7 @@ class _GctNewsCardState extends State<GctNewsCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
       child: GestureDetector(
         onTap: () async {
           Navigator.push(
@@ -37,7 +37,7 @@ class _GctNewsCardState extends State<GctNewsCard> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50),
             ),
-            child: Container(
+            child: SizedBox(
               // height: 260,
               width: double.infinity,
               child: Column(children: [
@@ -45,18 +45,25 @@ class _GctNewsCardState extends State<GctNewsCard> {
                   height: 210,
                   width: double.infinity,
                   padding:
-                      EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 10),
+                      const EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 10),
                   child: FittedBox(
-                    child: ClipRRect(
-                      child: Image.network(widget.NewsFlyer),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
                     fit: BoxFit.fill,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: CachedNetworkImage(
+                          imageUrl: widget.NewsFlyer,
+                          placeholder: (context, url) => const Skeleton(
+                                height: 210,
+                                width: 500,
+                              ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error)),
+                    ),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  margin: EdgeInsets.only(bottom: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  margin: const EdgeInsets.only(bottom: 20),
                   width: double.infinity,
                   // height: 70,
                   child: Column(
@@ -70,9 +77,9 @@ class _GctNewsCardState extends State<GctNewsCard> {
                               fontSize: 16),
                         ),
                         Text(
-                          widget.NewsDesc + " - READ MORE",
+                          "${widget.NewsDesc} - READ MORE",
                           style: GoogleFonts.notoSerif(
-                              color: Color.fromARGB(255, 111, 111, 111),
+                              color: const Color.fromARGB(255, 111, 111, 111),
                               fontSize: 13),
                         )
                         // Positioned(
